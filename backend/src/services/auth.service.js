@@ -45,6 +45,16 @@ async function login({ correo, password }) {
     throw new CredencialesInvalidasError("Correo o contraseña incorrectos");
   }
 
+  // RF-007: la desactivación de un usuario (ej: un vendedor deshabilitado
+  // por un admin) debe impedir nuevos logins. Se chequea DESPUÉS de validar
+  // la contraseña, no antes, y se reusa el mismo mensaje genérico de
+  // credenciales inválidas — así la respuesta no permite a un atacante
+  // distinguir "cuenta inactiva" de "contraseña incorrecta" y enumerar
+  // cuentas desactivadas.
+  if (usuario.estado === "INACTIVO") {
+    throw new CredencialesInvalidasError("Correo o contraseña incorrectos");
+  }
+
   const token = generarToken(usuario);
 
   return { token, usuario: sanitizar(usuario) };
@@ -94,6 +104,7 @@ module.exports = {
   login,
   solicitarRecuperacion,
   restablecerPassword,
+  sanitizar,
   CredencialesInvalidasError,
   TokenInvalidoError,
 };
