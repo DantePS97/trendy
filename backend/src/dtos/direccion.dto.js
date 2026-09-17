@@ -10,8 +10,7 @@ const { z } = require("zod");
 // undefined" antes de llegar al .min(). Por eso acá también se pasa el
 // mensaje en `z.string({ error: "..." })`, que cubre el caso de tipo
 // inválido/undefined. Con eso, faltante o vacío devuelven el mismo mensaje
-// claro. (auth.dto.js de la Ronda 1 no lo hace y tiene el mismo gotcha con
-// campos faltantes — no se toca acá porque no es parte de este alcance.)
+// claro. (auth.dto.js aplica el mismo patrón.)
 const crearDireccionSchema = z.object({
   destinatario: z
     .string({ error: "El destinatario es requerido" })
