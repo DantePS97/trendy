@@ -1,14 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const { PrismaMariaDb } = require("@prisma/adapter-mariadb");
-
-// Prisma 7 requiere un driver adapter explícito: ya no arma la conexión
-// automáticamente a partir de datasource.url en schema.prisma (ver
-// https://pris.ly/d/prisma7-client-config). Usamos @prisma/adapter-mariadb
-// porque no existe un @prisma/adapter-mysql dedicado; el driver "mariadb"
-// es wire-compatible con MySQL y es el adapter oficial de Prisma para
-// datasource provider = "mysql".
-const adapter = new PrismaMariaDb(process.env.DATABASE_URL);
-const prisma = new PrismaClient({ adapter });
+const prisma = require("../config/prisma");
 
 async function crear({ nombre, correo, passwordHash, rolId }) {
   return prisma.usuario.create({
@@ -16,7 +6,30 @@ async function crear({ nombre, correo, passwordHash, rolId }) {
   });
 }
 
+async function buscarPorCorreo(correo) {
+  return prisma.usuario.findUnique({
+    where: { correo },
+    include: { rol: true },
+  });
+}
+
+async function buscarPorId(id) {
+  return prisma.usuario.findUnique({
+    where: { id },
+    include: { rol: true },
+  });
+}
+
+async function actualizarPassword(id, passwordHash) {
+  return prisma.usuario.update({
+    where: { id },
+    data: { passwordHash },
+  });
+}
+
 module.exports = {
-  prisma,
   crear,
+  buscarPorCorreo,
+  buscarPorId,
+  actualizarPassword,
 };
