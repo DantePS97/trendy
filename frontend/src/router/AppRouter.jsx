@@ -7,6 +7,9 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import RestablecerPassword from "../pages/auth/RestablecerPassword";
 import Direcciones from "../pages/customer/Direcciones";
 import RoleGuard from "../components/auth/RoleGuard";
+import Sellers from "../pages/admin/Sellers";
+import Users from "../pages/admin/Users";
+import Roles from "../pages/admin/Roles";
 
 function AppRoutes() {
   return (
@@ -27,9 +30,33 @@ function AppRoutes() {
           </RoleGuard>
         }
       />
-      {/* Rondas de admin/vendedor (RF-006 rutas /admin/* y /vendedor/*)
-          quedan pendientes para Ronda 3, cuando existan las páginas de
-          Sellers, Users, Roles y el panel de vendedor. */}
+      <Route
+        path="/admin/vendedores"
+        element={
+          <RoleGuard roles={["admin"]}>
+            <Sellers />
+          </RoleGuard>
+        }
+      />
+      <Route
+        path="/admin/usuarios"
+        element={
+          <RoleGuard roles={["admin"]}>
+            <Users />
+          </RoleGuard>
+        }
+      />
+      <Route
+        path="/admin/roles"
+        element={
+          <RoleGuard roles={["admin"]}>
+            <Roles />
+          </RoleGuard>
+        }
+      />
+      {/* Panel de vendedor (rutas /vendedor/*) queda pendiente: no forma
+          parte del alcance de Ronda 3 (RF-007, RF-045, RF-046 son
+          exclusivamente de administración). */}
     </Routes>
   );
 }
