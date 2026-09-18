@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "./components/Header";
+import Header from "./components/layout/Header";
 
 function App() {
   
