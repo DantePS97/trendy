@@ -1,0 +1,57 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Usuario {
+  id           Int           @id @default(autoincrement())
+  nombre       String
+  correo       String        @unique
+  passwordHash String
+  rolId        Int
+  estado       EstadoUsuario @default(ACTIVO)
+  creadoEn     DateTime      @default(now())
+  rol          Rol           @relation(fields: [rolId], references: [id])
+  direcciones  Direccion[]
+}
+
+enum EstadoUsuario {
+  ACTIVO
+  INACTIVO
+}
+
+model Rol {
+  id       Int       @id @default(autoincrement())
+  nombre   String    @unique
+  usuarios Usuario[]
+  permisos Permiso[]
+}
+
+// Nota: relación N-N Rol-Permiso es una decisión de este PR, no viene explícita en el DDS — confirmar con el equipo si prefieren un modelo distinto
+model Permiso {
+  id     Int    @id @default(autoincrement())
+  nombre String @unique
+  roles  Rol[]
+}
+
+model Direccion {
+  id           Int     @id @default(autoincrement())
+  usuarioId    Int
+  destinatario String
+  telefono     String
+  calle        String
+  ciudad       String
+  departamento String
+  codigoPostal String?
+  referencia   String?
+  esPrincipal  Boolean @default(false)
+  usuario      Usuario @relation(fields: [usuarioId], references: [id])
+}
