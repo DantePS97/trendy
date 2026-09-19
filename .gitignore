@@ -1,0 +1,8 @@
+# Dependencias y builds
+node_modules/
+frontend/dist/
+
+# Variables de entorno reales (no commitear secretos)
+.env
+backend/.env
+mysql/.env
