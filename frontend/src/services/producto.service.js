@@ -28,10 +28,44 @@ function obtenerProducto(id) {
   return api.get(`/productos/${id}`).then((response) => response.data);
 }
 
+// Alta de producto (RF-013). El contrato NO acepta `estado` en el body: el
+// backend lo asigna en ACTIVO por defecto (ver schema.prisma, modelo
+// Producto). El estado se cambia después con cambiarEstadoProducto.
+function crearProducto(datos) {
+  return api.post("/productos", datos).then((response) => response.data);
+}
+
+// Edición de producto (RF-013). Mismo body que crearProducto; tampoco acepta
+// `estado` acá.
+function actualizarProducto(id, datos) {
+  return api.put(`/productos/${id}`, datos).then((response) => response.data);
+}
+
+// Único endpoint del contrato que cambia el estado de un producto ya
+// existente (RF-013/RF-014).
+function cambiarEstadoProducto(id, estado) {
+  return api
+    .patch(`/productos/${id}/estado`, { estado })
+    .then((response) => response.data);
+}
+
+// Carga de imágenes (RF-014). El backend todavía no sube archivos: espera
+// una URL de una imagen ya alojada en un storage externo (ver
+// UploaderImagenes.jsx para el detalle de esta limitación del MVP).
+function subirImagen(productoId, url) {
+  return api
+    .post(`/productos/${productoId}/imagenes`, { url })
+    .then((response) => response.data);
+}
+
 const productoService = {
   listarProductos,
   listarCategorias,
   obtenerProducto,
+  crearProducto,
+  actualizarProducto,
+  cambiarEstadoProducto,
+  subirImagen,
 };
 
 export default productoService;

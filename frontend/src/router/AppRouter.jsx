@@ -12,6 +12,8 @@ import RoleGuard from "../components/auth/RoleGuard";
 import Sellers from "../pages/admin/Sellers";
 import Users from "../pages/admin/Users";
 import Roles from "../pages/admin/Roles";
+import AdminProducts from "../pages/admin/Products";
+import SellerProducts from "../pages/seller/Products";
 
 function AppRoutes() {
   return (
@@ -58,9 +60,27 @@ function AppRoutes() {
           </RoleGuard>
         }
       />
-      {/* Panel de vendedor (rutas /vendedor/*) queda pendiente: no forma
-          parte del alcance de Ronda 3 (RF-007, RF-045, RF-046 son
-          exclusivamente de administración). */}
+      <Route
+        path="/admin/productos"
+        element={
+          <RoleGuard roles={["admin"]}>
+            <AdminProducts />
+          </RoleGuard>
+        }
+      />
+      <Route
+        path="/vendedor/productos"
+        element={
+          <RoleGuard roles={["vendedor"]}>
+            <SellerProducts />
+          </RoleGuard>
+        }
+      />
+      {/* Resto del panel de vendedor (rutas /vendedor/*) queda pendiente:
+          RF-007, RF-045, RF-046 son exclusivamente de administración y no
+          forman parte de esta ronda. Gestión de productos (RF-013, RF-014,
+          RF-016) sí es de vendedor/admin, por eso /vendedor/productos ya
+          está wireado acá. */}
     </Routes>
   );
 }
