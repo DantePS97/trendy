@@ -11,12 +11,12 @@
 
   padding: 20px;
 
-  background-color: #ffffff;
+  background-color: var(--color-surface);
 
-  border: 1px solid #eeeeee;
-  border-radius: 15px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
 
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-md);
 
   align-self: flex-start;
 }
@@ -34,7 +34,7 @@
 .product-filters__title {
   margin: 0;
 
-  color: #333333;
+  color: var(--color-text);
 
   font-size: 17px;
   font-weight: 700;
@@ -44,7 +44,7 @@
   border: none;
   background-color: transparent;
 
-  color: #e83e8c;
+  color: var(--color-brand-500);
 
   font-size: 13px;
   font-weight: 600;
@@ -57,7 +57,7 @@
 }
 
 .product-filters__clear:hover {
-  color: #d63384;
+  color: var(--color-brand-600);
   text-decoration: underline;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .product-filters__label {
-  color: #333333;
+  color: var(--color-text);
 
   font-size: 13px;
   font-weight: 600;
@@ -87,13 +87,13 @@
 
   padding: 0 12px;
 
-  border: 1px solid #dddddd;
-  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
 
   outline: none;
 
-  background-color: #f8f8f8;
-  color: #333333;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 
   font-size: 14px;
 
@@ -109,17 +109,17 @@
 .product-filters__input:focus,
 .product-filters__select:focus,
 .product-filters__precio-input:focus {
-  border-color: #e83e8c;
-  box-shadow: 0 0 0 3px rgba(232, 62, 140, 0.1);
+  border-color: var(--color-brand-500);
+  box-shadow: var(--shadow-focus-brand);
 }
 
 .product-filters__input::placeholder,
 .product-filters__precio-input::placeholder {
-  color: #999999;
+  color: var(--color-text-muted);
 }
 
 .product-filters__error {
-  color: #d63384;
+  color: var(--color-danger-500);
   font-size: 12px;
 }
 
@@ -138,7 +138,7 @@
 }
 
 .product-filters__rango-separador {
-  color: #999999;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
