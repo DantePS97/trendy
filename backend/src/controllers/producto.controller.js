@@ -39,6 +39,33 @@ async function listar(req, res) {
   }
 }
 
+// RF-012: detalle de producto público (MOD-02). No requiere auth ni
+// roleGuard, igual que `listar`.
+async function getById(req, res) {
+  const { id } = req.params;
+
+  // A diferencia de esNumeroValido (que trata "" / undefined como válido
+  // porque son filtros opcionales en `listar`), acá el id es obligatorio:
+  // un valor no numérico no puede llegar a Prisma.
+  if (Number.isNaN(Number(id))) {
+    return res.status(400).json({ error: "id debe ser numérico" });
+  }
+
+  try {
+    const producto = await productoService.obtenerDetallePorId(id);
+
+    if (!producto) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    return res.status(200).json(producto);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error al obtener el producto" });
+  }
+}
+
 module.exports = {
   listar,
+  getById,
 };
