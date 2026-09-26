@@ -14,6 +14,8 @@ import Users from "../pages/admin/Users";
 import Roles from "../pages/admin/Roles";
 import AdminProducts from "../pages/admin/Products";
 import SellerProducts from "../pages/seller/Products";
+import AdminInventory from "../pages/admin/Inventory";
+import SellerInventory from "../pages/seller/Inventory";
 
 function AppRoutes() {
   return (
@@ -76,11 +78,27 @@ function AppRoutes() {
           </RoleGuard>
         }
       />
+      <Route
+        path="/admin/inventario"
+        element={
+          <RoleGuard roles={["admin"]}>
+            <AdminInventory />
+          </RoleGuard>
+        }
+      />
+      <Route
+        path="/vendedor/inventario"
+        element={
+          <RoleGuard roles={["vendedor"]}>
+            <SellerInventory />
+          </RoleGuard>
+        }
+      />
       {/* Resto del panel de vendedor (rutas /vendedor/*) queda pendiente:
           RF-007, RF-045, RF-046 son exclusivamente de administración y no
           forman parte de esta ronda. Gestión de productos (RF-013, RF-014,
-          RF-016) sí es de vendedor/admin, por eso /vendedor/productos ya
-          está wireado acá. */}
+          RF-016) y de inventario (RF-017) sí son de vendedor/admin, por eso
+          /vendedor/productos y /vendedor/inventario ya están wireadas acá. */}
     </Routes>
   );
 }
