@@ -1,0 +1,58 @@
+.formulario-variantes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 16px;
+  border: 1px solid #eeeeee;
+  border-radius: 12px;
+  background-color: #fafafa;
+}
+
+.formulario-variantes__titulo {
+  margin: 0;
+  font-size: 15px;
+}
+
+.formulario-variantes__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.formulario-variantes__vacio {
+  color: #666666;
+  font-size: 13px;
+}
+
+.formulario-variantes__item {
+  display: grid;
+  grid-template-columns: 1fr 80px 100px 80px;
+  gap: 8px;
+  align-items: center;
+
+  padding: 6px 10px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+
+  font-size: 13px;
+}
+
+.formulario-variantes__sku {
+  font-weight: 600;
+}
+
+.formulario-variantes__form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.formulario-variantes__form .btn {
+  grid-column: 1 / -1;
+}
