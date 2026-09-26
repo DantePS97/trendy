@@ -4,9 +4,9 @@
   gap: 12px;
 
   padding: 16px;
-  border: 1px solid #eeeeee;
-  border-radius: 12px;
-  background-color: #fafafa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg);
 }
 
 .formulario-variantes__titulo {
@@ -25,7 +25,7 @@
 }
 
 .formulario-variantes__vacio {
-  color: #666666;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
@@ -36,9 +36,9 @@
   align-items: center;
 
   padding: 6px 10px;
-  border-radius: 8px;
-  background-color: #ffffff;
-  border: 1px solid #eeeeee;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
 
   font-size: 13px;
 }
