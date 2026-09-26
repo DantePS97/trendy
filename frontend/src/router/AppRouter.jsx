@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/public/Home";
 import Catalog from "../pages/public/Catalog";
+import ProductDetail from "../pages/public/ProductDetail";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import ForgotPassword from "../pages/auth/ForgotPassword";
@@ -17,6 +18,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/catalogo" element={<Catalog />} />
+      <Route path="/productos/:id" element={<ProductDetail />} />
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Register />} />
       <Route path="/recuperar-password" element={<ForgotPassword />} />
