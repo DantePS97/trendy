@@ -1,0 +1,80 @@
+/* Selector de talla/color del detalle de producto */
+
+.selector-talla {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin: 18px 0;
+}
+
+.selector-talla__label {
+  color: #333333;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.selector-talla__opciones {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.selector-talla__opcion {
+  padding: 10px 14px;
+
+  background-color: #ffffff;
+  color: #333333;
+
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.selector-talla__opcion:hover:not(:disabled) {
+  border-color: #e83e8c;
+  color: #e83e8c;
+}
+
+.selector-talla__opcion--activa {
+  background-color: #e83e8c;
+  color: #ffffff;
+
+  border-color: #e83e8c;
+}
+
+.selector-talla__opcion--activa:hover:not(:disabled) {
+  color: #ffffff;
+}
+
+.selector-talla__opcion:disabled {
+  background-color: #f7f7f7;
+  color: #aaaaaa;
+
+  border-color: #eeeeee;
+
+  cursor: not-allowed;
+}
+
+.selector-talla__agotado {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.selector-talla__vacio {
+  color: #999999;
+
+  font-size: 14px;
+}

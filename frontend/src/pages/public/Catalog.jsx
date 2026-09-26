@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Breadcrumb from "../../components/common/Breadcrumb";
 import SearchBar from "../../components/products/SearchBar";
@@ -46,6 +47,7 @@ function formatearPrecio(precio) {
 // como el panel de ProductFilters escriben sobre el mismo campo `q`, y
 // necesitan quedar sincronizados entre sí.
 function Catalog() {
+  const navigate = useNavigate();
   const [filtros, setFiltros] = useState(FILTROS_INICIALES);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -122,6 +124,7 @@ function Catalog() {
                       name={producto.nombre}
                       category={producto.categoria?.nombre}
                       price={formatearPrecio(producto.precio)}
+                      onView={() => navigate(`/productos/${producto.id}`)}
                     />
                   ))}
                 </div>

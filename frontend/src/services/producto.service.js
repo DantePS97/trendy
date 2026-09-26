@@ -21,9 +21,17 @@ function listarCategorias() {
   return api.get("/categorias").then((response) => response.data);
 }
 
+// Detalle de producto público (RF-012). El backend devuelve 404 cuando el
+// producto no existe o no está activo; se propaga tal cual para que la
+// página de detalle distinga ese caso de un error genérico de red.
+function obtenerProducto(id) {
+  return api.get(`/productos/${id}`).then((response) => response.data);
+}
+
 const productoService = {
   listarProductos,
   listarCategorias,
+  obtenerProducto,
 };
 
 export default productoService;
