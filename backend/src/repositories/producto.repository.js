@@ -109,6 +109,28 @@ const productoRepository = {
       },
     });
   },
+
+  // RF-013: alta de producto por admin/vendedor. `datos` ya viene validado
+  // por crearProductoSchema (producto.dto.js) y filtrado/reforzado por
+  // producto.service — este repository no agrega lógica, solo persiste.
+  async crear(datos) {
+    return prisma.producto.create({ data: datos });
+  },
+
+  // RF-013: edición parcial (PUT admite campos opcionales, ver
+  // actualizarProductoSchema). El caller (producto.service) es responsable
+  // de confirmar que el producto exista antes de llamar acá.
+  async actualizar(id, datos) {
+    return prisma.producto.update({ where: { id }, data: datos });
+  },
+
+  // RF-013: cambio de estado (ACTIVO/INACTIVO) separado de `actualizar`
+  // para que la validación de "no se puede activar sin imagen" (ver
+  // producto.service.cambiarEstado) tenga un punto de entrada propio, igual
+  // que vendedor.service.cambiarEstado tiene el suyo para EstadoUsuario.
+  async cambiarEstado(id, estado) {
+    return prisma.producto.update({ where: { id }, data: { estado } });
+  },
 };
 
 module.exports = productoRepository;
