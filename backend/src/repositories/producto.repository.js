@@ -94,6 +94,21 @@ const productoRepository = {
       },
     });
   },
+
+  // RF-012: detalle de producto (MOD-02). A diferencia de `buscar`, acá
+  // traemos TODAS las variantes (incluso con stock 0) porque el detalle
+  // tiene que poder mostrar tallas/colores agotados — es el service el que
+  // decide, por variante, si está `disponible`.
+  async obtenerPorId(id) {
+    return prisma.producto.findUnique({
+      where: { id },
+      include: {
+        variantes: true,
+        imagenes: true,
+        categoria: true,
+      },
+    });
+  },
 };
 
 module.exports = productoRepository;

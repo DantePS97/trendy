@@ -11,6 +11,28 @@ async function buscar(filtros) {
   return productoRepository.buscar(filtros);
 }
 
+// RF-012: detalle de producto (MOD-02). Devuelve `null` cuando el producto
+// no existe o no está ACTIVO (RN-001) — es una señal de dominio, no un
+// error; el controller la traduce a 404. Por cada variante se calcula
+// `disponible` a partir del stock (no se filtran las variantes agotadas:
+// el detalle necesita poder mostrarlas como "sin stock").
+async function obtenerDetallePorId(id) {
+  const producto = await productoRepository.obtenerPorId(Number(id));
+
+  if (!producto || producto.estado !== "ACTIVO") {
+    return null;
+  }
+
+  return {
+    ...producto,
+    variantes: producto.variantes.map((variante) => ({
+      ...variante,
+      disponible: variante.stock > 0,
+    })),
+  };
+}
+
 module.exports = {
   buscar,
+  obtenerDetallePorId,
 };
