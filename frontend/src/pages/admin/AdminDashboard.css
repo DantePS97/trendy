@@ -34,9 +34,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  /* rgba(255,255,255,0.1): borde sutil sobre fondo navy oscuro, sin token
-     equivalente (--color-border es para superficies claras). */
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid var(--color-border-inverse);
   margin-bottom: 20px;
 }
 
@@ -78,8 +76,7 @@
 }
 
 .sidebar-item:hover {
-  /* rgba(255,255,255,0.08): overlay sutil sobre navy, sin token equivalente. */
-  background: rgba(255,255,255,0.08);
+  background: var(--color-overlay-inverse);
 }
 
 .sidebar-item.active {
@@ -89,9 +86,7 @@
     var(--color-brand-500)
   );
   color: var(--color-text-inverse);
-  /* rgba(229,0,118,0.25): sombra con color de marca (glow), sin token de
-     sombra equivalente (--shadow-* son neutras). */
-  box-shadow: 0 5px 15px rgba(229, 0, 118, 0.25);
+  box-shadow: var(--shadow-glow-brand);
 }
 
 .menu-icon {
@@ -278,11 +273,9 @@
   color: var(--color-info-500);
 }
 
-/* .stat-icon.purple: #eee8ff / #7352db no tienen token equivalente (no hay
-   color "purple" en la paleta de estado), se deja sin tokenizar. */
 .stat-icon.purple {
-  background: #eee8ff;
-  color: #7352db;
+  background: var(--color-purple-100);
+  color: var(--color-purple-500);
 }
 
 .stat-icon.orange {

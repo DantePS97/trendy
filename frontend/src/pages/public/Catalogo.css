@@ -69,10 +69,7 @@
   background-color: var(--color-danger-100);
   color: var(--color-danger-500);
 
-  /* No hay token de borde para el estado danger todavía (solo bg/texto,
-     ver --color-danger-* en tokens.css) — se deja el hex original hasta
-     que se agregue uno. */
-  border: 1px solid #f6c3da;
+  border: 1px solid var(--color-danger-300);
   border-radius: var(--radius-md);
 
   font-size: 14px;

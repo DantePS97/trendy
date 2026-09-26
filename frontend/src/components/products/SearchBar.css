@@ -22,9 +22,7 @@
 
 .searchbar:focus-within {
   border-color: var(--color-brand-500);
-  /* Ring de foco con alpha: sin token de sombra equivalente, ver misma nota
-     en Select.css. */
-  box-shadow: 0 0 0 3px rgba(232, 62, 140, 0.1);
+  box-shadow: var(--shadow-focus-brand);
 }
 
 /* Input */

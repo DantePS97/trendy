@@ -10,11 +10,10 @@
 
 .input-task:focus {
   outline: none;
-  border-color: var(--color-success-500);
-  /* rgba(76, 175, 80, 0.4) es un glow de foco con alpha; no hay token de
-     sombra equivalente (--shadow-* son sombras neutras de elevación, no
-     rings de foco con color), se deja sin tokenizar. */
-  box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+  /* Unificado a rosa de marca (antes verde, único caso del proyecto con
+     foco de otro color — Select/SearchBar/ProductFilters ya usaban rosa). */
+  border-color: var(--color-brand-500);
+  box-shadow: var(--shadow-focus-brand);
 }
 
 .input-task::placeholder {
