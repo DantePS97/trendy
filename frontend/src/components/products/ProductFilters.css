@@ -57,7 +57,7 @@
 }
 
 .product-filters__clear:hover {
-  color: var(--color-brand-700);
+  color: var(--color-brand-600);
   text-decoration: underline;
 }
 

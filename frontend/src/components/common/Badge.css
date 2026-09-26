@@ -13,10 +13,14 @@
   color: var(--color-text-inverse);
 }
 
-/* Nuevo */
+/* Nuevo. Morado, no tiene token equivalente en la paleta de estado (mismo
+   caso que .stat-icon.purple en AdminDashboard.css) — se deja el color
+   original en vez de forzarlo a --color-info-*, que ya lo usa .badge--info
+   (Pagado) y dejaría ambas variantes visualmente idénticas pese a significar
+   cosas distintas. */
 .badge--new {
-  background-color: var(--color-info-100);
-  color: var(--color-info-500);
+  background-color: #f3e5f5;
+  color: #8e24aa;
 }
 
 /* Oferta */
