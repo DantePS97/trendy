@@ -23,7 +23,6 @@ CREATE TABLE `Producto` (
     `precio` DECIMAL(10, 2) NOT NULL,
     `categoriaId` INTEGER NOT NULL,
     `estado` ENUM('ACTIVO', 'INACTIVO') NOT NULL DEFAULT 'ACTIVO',
-    `creadoEn` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

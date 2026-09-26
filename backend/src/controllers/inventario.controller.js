@@ -5,12 +5,12 @@ function formatearErroresZod(error) {
   return error.issues.map((issue) => issue.message).join(", ");
 }
 
-// RF-017: vista general de movimientos de inventario (todas las
-// variantes). Requiere auth + roleGuard(["admin","vendedor"]).
+// RF-017: vista general de inventario — una fila por variante con su stock
+// actual. Requiere auth + roleGuard(["admin","vendedor"]).
 async function listar(req, res) {
   try {
-    const movimientos = await inventarioService.listarTodo();
-    return res.status(200).json(movimientos);
+    const variantes = await inventarioService.listarTodo();
+    return res.status(200).json(variantes);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Error al listar el inventario" });

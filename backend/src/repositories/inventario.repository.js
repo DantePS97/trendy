@@ -59,20 +59,25 @@ const inventarioRepository = {
     });
   },
 
-  // Historial de movimientos de UNA variante, más reciente primero.
+  // Historial de movimientos de UNA variante, más reciente primero. Incluye
+  // el usuario que hizo cada ajuste (columna "Usuario" del historial en el
+  // panel de inventario).
   async listarPorVariante(varianteId) {
     return prisma.inventarioMovimiento.findMany({
       where: { varianteId },
+      include: { usuario: true },
       orderBy: { creadoEn: "desc" },
     });
   },
 
-  // Vista general: todos los movimientos, más reciente primero, con la
-  // variante asociada para que el panel no tenga que resolverla aparte.
+  // Vista general de RF-017: una fila por VARIANTE (no por movimiento) con
+  // su stock actual, que es lo que el panel de inventario necesita listar y
+  // sobre lo que se dispara "Ajustar stock"/"Ver historial" (usando el id de
+  // la variante, no el de un movimiento).
   async listarTodo() {
-    return prisma.inventarioMovimiento.findMany({
-      include: { variante: true },
-      orderBy: { creadoEn: "desc" },
+    return prisma.variante.findMany({
+      include: { producto: { select: { id: true, nombre: true } } },
+      orderBy: { id: "asc" },
     });
   },
 };
