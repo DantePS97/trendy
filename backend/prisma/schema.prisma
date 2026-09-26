@@ -22,6 +22,7 @@ model Usuario {
   rol                  Rol                   @relation(fields: [rolId], references: [id])
   direcciones          Direccion[]
   passwordResetTokens  PasswordResetToken[]
+  movimientosInventario InventarioMovimiento[]
 }
 
 enum EstadoUsuario {
@@ -107,13 +108,14 @@ model Producto {
 // variante; RN-001 (ver producto.repository.js) exige stock > 0 para que un
 // producto se considere disponible.
 model Variante {
-  id         Int      @id @default(autoincrement())
-  productoId Int
-  sku        String   @unique
-  talla      String
-  color      String?
-  stock      Int      @default(0)
-  producto   Producto @relation(fields: [productoId], references: [id])
+  id          Int                    @id @default(autoincrement())
+  productoId  Int
+  sku         String                 @unique
+  talla       String
+  color       String?
+  stock       Int                    @default(0)
+  producto    Producto               @relation(fields: [productoId], references: [id])
+  movimientos InventarioMovimiento[]
 
   @@unique([productoId, talla, color])
 }
@@ -124,4 +126,33 @@ model Imagen {
   url        String
   orden      Int      @default(0)
   producto   Producto @relation(fields: [productoId], references: [id])
+}
+
+// Sprint 2 / Ronda 4 (MOD-03, RF-017): registro y ajuste de stock por
+// variante. Sin fragmento textual del DDS para este modelo (a diferencia de
+// Producto/Variante en Ronda 1) — son campos razonables propuestos para el
+// MVP:
+//   - cantidad: delta aplicado al stock (positivo o negativo, nunca 0 — se
+//     valida en inventario.dto.js). Se guarda el delta, no el stock
+//     resultante, para que el historial sea auditable movimiento a
+//     movimiento.
+//   - tipoAjuste: ENTRADA/SALIDA/AJUSTE como String en vez de un enum de
+//     Prisma — se mantiene simple porque no hay otro lugar del schema que
+//     necesite este enum todavía; se puede migrar a un `enum` real si crece.
+//   - motivo: opcional en general, pero inventario.dto.js lo exige cuando
+//     tipoAjuste es "AJUSTE" (una corrección manual de stock, a diferencia
+//     de una ENTRADA/SALIDA de mercadería, necesita justificarse).
+//   - usuarioId: quién hizo el ajuste, para trazabilidad (RN-002: el stock
+//     nunca queda negativo, y saber quién ajustó ayuda a auditar cuando se
+//     rechaza un ajuste).
+model InventarioMovimiento {
+  id         Int      @id @default(autoincrement())
+  varianteId Int
+  cantidad   Int
+  tipoAjuste String
+  motivo     String?
+  usuarioId  Int
+  creadoEn   DateTime @default(now())
+  variante   Variante @relation(fields: [varianteId], references: [id])
+  usuario    Usuario  @relation(fields: [usuarioId], references: [id])
 }
