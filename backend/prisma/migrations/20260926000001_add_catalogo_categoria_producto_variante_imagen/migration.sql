@@ -1,8 +1,9 @@
 -- Sprint 2 / Ronda 1 (MOD-02, RF-008 a RF-011): agrega Categoria, Producto,
--- Variante e Imagen, que faltaban en el schema (ver comentario en
--- schema.prisma). Escrita a mano porque no hay una base MySQL viva
--- disponible en este entorno para que `prisma migrate dev` la genere; sigue
--- el mismo estilo que la migración `20260917145452_init`.
+-- Variante e Imagen, que faltaban en el schema. Producto y Variante siguen
+-- el fragmento textual del DDS §4.2 (verificado contra el docx original).
+-- Escrita a mano porque no hay una base MySQL viva disponible en este
+-- entorno para que `prisma migrate dev` la genere; sigue el mismo estilo
+-- que la migración `20260917145452_init`.
 
 -- CreateTable
 CREATE TABLE `Categoria` (
@@ -18,10 +19,10 @@ CREATE TABLE `Categoria` (
 CREATE TABLE `Producto` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nombre` VARCHAR(191) NOT NULL,
-    `descripcion` VARCHAR(191) NULL,
+    `descripcion` TEXT NOT NULL,
     `precio` DECIMAL(10, 2) NOT NULL,
-    `estado` ENUM('ACTIVO', 'INACTIVO') NOT NULL DEFAULT 'ACTIVO',
     `categoriaId` INTEGER NOT NULL,
+    `estado` ENUM('ACTIVO', 'INACTIVO') NOT NULL DEFAULT 'ACTIVO',
     `creadoEn` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)
@@ -31,10 +32,13 @@ CREATE TABLE `Producto` (
 CREATE TABLE `Variante` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `productoId` INTEGER NOT NULL,
+    `sku` VARCHAR(191) NOT NULL,
     `talla` VARCHAR(191) NOT NULL,
+    `color` VARCHAR(191) NULL,
     `stock` INTEGER NOT NULL DEFAULT 0,
 
-    UNIQUE INDEX `Variante_productoId_talla_key`(`productoId`, `talla`),
+    UNIQUE INDEX `Variante_sku_key`(`sku`),
+    UNIQUE INDEX `Variante_productoId_talla_color_key`(`productoId`, `talla`, `color`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
